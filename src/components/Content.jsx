@@ -1,20 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import About from "./About";
 import Contact from "./Contact";
 import Services from "./Services";
 import Industries from "./Industries";
 
-// import { motion } from "framer-motion";
+
 
 function Content() {
 
-  const [page, setPage] = useState("about");
+  const [page, setPage] = useState("About");
   const [loaded, setLoaded] = useState(false);
+  const [buttonPushed, setButtonPushed] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  // Make content-container draggable.
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const draggableRef = useRef(null);
+
+  const onDragStart = (e) => {
+    setIsDragging(true);
+    // Initial position
+    setPosition({
+      x: e.clientX - draggableRef.current.getBoundingClientRect().left,
+      y: e.clientY - draggableRef.current.getBoundingClientRect().top,
+    });
+  };
+
+  const onDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  const onDragging = (e) => {
+    if (!isDragging) return;
+
+    const newX = e.clientX - position.x;
+    const newY = e.clientY - position.y;
+
+    draggableRef.current.style.left = `${newX}px`;
+    draggableRef.current.style.top = `${newY}px`;
+  };
 
   useEffect(() => {
-    console.log(page);
-  }, [page])
+    console.log(buttonPushed);
+  }, [buttonPushed])
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,13 +58,13 @@ function Content() {
 
   function renderPage() {
     switch (page) {
-      case "about":
+      case "About":
         return <About />;
-      case "services":
+      case "Services":
         return <Services />;
-      case "industries":
+      case "Industries":
         return <Industries />;
-      case "contact":
+      case "Contact":
         return <Contact />;;
       default:
         return <About />;
@@ -43,16 +73,17 @@ function Content() {
 
   return (
     <div className="container">
-      <div className={`content-container ${loaded ? "loaded" : ""}`}>
+      <div className={`content-container ${loaded ? "loaded" : ""} ${isOpen ? "" : "closed"}`} ref={draggableRef} onMouseDown={onDragStart} onMouseMove={onDragging} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}>
         <div className="header">
-          <h1>Kaur Accounting</h1>
+          <h1>Kaur Accounting - {page}</h1>
+          <span className={`close ${buttonPushed ? "pushed" : ""}`} onMouseDown={() => { setButtonPushed(true); setTimeout(() => { setButtonPushed(false) }, 100); }} onClick={() => setTimeout(() => { setIsOpen(false) }, 40)}>X</span>
         </div>
         <div className="menu">
           <ul>
-            <li onClick={() => navClick("about")}>About Us</li>
-            <li onClick={() => navClick("services")}>Our Services</li>
-            <li onClick={() => navClick("industries")}>Industries</li>
-            <li onClick={() => navClick("contact")}>Contact</li>
+            <li onClick={() => navClick("About")} className={(page === "About" ? "selected" : "")}>About</li>
+            <li onClick={() => navClick("Services")} className={(page === "Services" ? "selected" : "")}>Services</li>
+            <li onClick={() => navClick("Industries")} className={(page === "Industries" ? "selected" : "")}>Industries</li>
+            <li onClick={() => navClick("Contact")} className={(page === "Contact" ? "selected" : "")}>Contact</li>
           </ul>
         </div>
         <div className="content-border">
@@ -63,7 +94,7 @@ function Content() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
