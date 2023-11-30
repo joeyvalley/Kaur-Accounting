@@ -338,7 +338,7 @@ html {
   border-right: 1px solid #FEFEFE;
   border-bottom: 1px solid #FEFEFE;
   border-left: 1px solid #848584;
-  image-rendering: pixelated;
+  /* image-rendering: pixelated; */
 }
 
 .person {
