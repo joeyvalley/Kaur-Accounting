@@ -13,6 +13,7 @@ function Content() {
   const [loaded, setLoaded] = useState(false);
   const [buttonPushed, setButtonPushed] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
+  const [showLogo, setShowLogo] = useState(false);
 
   // Make content-container draggable.
   const [isDragging, setIsDragging] = useState(false);
@@ -42,11 +43,30 @@ function Content() {
     draggableRef.current.style.top = `${newY}px`;
   };
 
+
+
   useEffect(() => {
+    if (window.innerWidth > 500) {
+      setRandomLocation();
+    }
+    setTimeout(() => {
+      setShowLogo(false);
+    }, 1300);
     setTimeout(() => {
       setLoaded(true);
-    }, 1200);
+    }, 1500);
   }, [])
+
+  const [xOffset, setXOffset] = useState("auto");
+  const [yOffset, setYOffset] = useState("auto");
+
+  function setRandomLocation() {
+    const randomX = Math.floor(Math.random() * (16 - 6 + 1)) + 6;
+    const randomY = Math.floor(Math.random() * (24 - 6 + 1)) + 6;
+    setXOffset(window.innerWidth / randomX);
+    setYOffset(window.innerHeight / randomY);
+    return [xOffset, yOffset];
+  }
 
   function navClick(page) {
     setPage(page);
@@ -69,10 +89,13 @@ function Content() {
 
   return (
     <div className="container">
-      <div className={`content-container ${loaded ? "loaded" : ""} ${isOpen ? "" : "closed"}`} ref={draggableRef} onMouseDown={onDragStart} onMouseMove={onDragging} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}>
+      <div className={`logo ${showLogo ? "" : "hidden"}`}>
+        <img src="/assets/images/logo.png" alt="K Logo" onClick={() => setTimeout(() => { setIsOpen(true); setShowLogo(false); }, 100)} />
+      </div>
+      <div style={{ left: xOffset, top: yOffset }} className={`content-container ${loaded ? "loaded" : ""} ${isOpen ? "" : "closed"}`} ref={draggableRef} onMouseDown={onDragStart} onMouseMove={onDragging} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}>
         <div className="header">
           <h1>Kaur Accounting</h1>
-          <span className={`close ${buttonPushed ? "pushed" : ""}`} onMouseDown={() => { setButtonPushed(true); setTimeout(() => { setButtonPushed(false) }, 100); }} onClick={() => setTimeout(() => { setIsOpen(false) }, 40)}>X</span>
+          <span className={`close ${buttonPushed ? "pushed" : ""}`} onMouseDown={() => { setButtonPushed(true); setTimeout(() => { setButtonPushed(false) }, 100); }} onClick={() => setTimeout(() => { setIsOpen(false); setShowLogo(true); }, 40)}>X</span>
         </div>
         <div className="menu">
           <ul>
@@ -86,7 +109,9 @@ function Content() {
           {renderPage(page)}
         </div>
         <div className="footer">
-          <p>&#169;&#65039; 2020 Kaur Accounting</p>
+          <p>
+            Copyright 2020 &bull; Kaur Accounting
+          </p>
         </div>
       </div>
     </div >
