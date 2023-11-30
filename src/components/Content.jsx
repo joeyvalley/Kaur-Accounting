@@ -43,10 +43,6 @@ function Content() {
   };
 
   useEffect(() => {
-    console.log(buttonPushed);
-  }, [buttonPushed])
-
-  useEffect(() => {
     setTimeout(() => {
       setLoaded(true);
     }, 1200);
@@ -75,7 +71,7 @@ function Content() {
     <div className="container">
       <div className={`content-container ${loaded ? "loaded" : ""} ${isOpen ? "" : "closed"}`} ref={draggableRef} onMouseDown={onDragStart} onMouseMove={onDragging} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}>
         <div className="header">
-          <h1>Kaur Accounting - {page}</h1>
+          <h1>Kaur Accounting</h1>
           <span className={`close ${buttonPushed ? "pushed" : ""}`} onMouseDown={() => { setButtonPushed(true); setTimeout(() => { setButtonPushed(false) }, 100); }} onClick={() => setTimeout(() => { setIsOpen(false) }, 40)}>X</span>
         </div>
         <div className="menu">
@@ -86,12 +82,11 @@ function Content() {
             <li onClick={() => navClick("Contact")} className={(page === "Contact" ? "selected" : "")}>Contact</li>
           </ul>
         </div>
-        <div className="content-border">
-          <div className="content-border2">
-            <div className="content">
-              {renderPage()}
-            </div>
-          </div>
+        <div className="page-container">
+          {renderPage(page)}
+        </div>
+        <div className="footer">
+          <p>&#169;&#65039; 2023 Kaur Accounting</p>
         </div>
       </div>
     </div >
