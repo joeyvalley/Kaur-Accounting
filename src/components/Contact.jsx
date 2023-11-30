@@ -17,7 +17,7 @@ export default function Contact() {
               <div className="staff-entry">
                 <img src="/assets/images/SR+Headshot.jpg" alt="Sandeep" />
                 <span className="person">Sandeep Rangi, CPA</span>
-                <span className="title">Controller and Interim CFO</span>
+                <span className="title">Controller and CFO Adviser</span>
                 <span className="title"><a href="mailto:sandeep@kauraccounting.com">sandeep@kauraccounting.com</a></span>
               </div>
               <div className="staff-entry">

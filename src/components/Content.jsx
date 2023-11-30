@@ -86,7 +86,7 @@ function Content() {
           {renderPage(page)}
         </div>
         <div className="footer">
-          <p>&#169;&#65039; 2023 Kaur Accounting</p>
+          <p>&#169;&#65039; 2020 Kaur Accounting</p>
         </div>
       </div>
     </div >
