@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 function Video() {
-  const [videoLink, setVideoLink] = useState("https://res.cloudinary.com/dd5bgygfp/video/upload/v1703007891/kaur/video-loop-1_yo6vbs.mp4")
+  const [videoLink, setVideoLink] = useState("https://res.cloudinary.com/dc12ewdqw/video/upload/v1708556053/kaur/whpysaqerwdqo7a6ydm1.mp4")
   const [isLooping, setIsLooping] = useState(false);
 
   function handleVideoLoop() {
     if (!isLooping) {
-      setVideoLink("https://res.cloudinary.com/dd5bgygfp/video/upload/v1703007894/kaur/video-loop-2_eao3nd.mp4");
+      setVideoLink("https://res.cloudinary.com/dc12ewdqw/video/upload/v1708556057/kaur/c4rasjfed9zlc3zgxhlh.mp4");
       setIsLooping(true)
     }
   }
@@ -14,7 +14,7 @@ function Video() {
   return (
     <>
       <div className="video-container">
-        <img className="overlay" src="https://res.cloudinary.com/dd5bgygfp/image/upload/v1703007780/kaur/scanlines_copy_omuxa0.png" alt="CRT Overlay" />
+        <img className="overlay" src="https://res.cloudinary.com/dc12ewdqw/image/upload/v1708556379/scanlines_eoppwp.png" alt="CRT Overlay" />
         <video className="video-background" autoPlay muted playsInline loop={isLooping} preload="auto" src={videoLink} type="video/mp4" onEnded={handleVideoLoop}>
         </video>
       </div>
