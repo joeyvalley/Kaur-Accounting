@@ -1,5 +1,3 @@
-
-
 export default function Services() {
   return (
     <div className="content-border">
