@@ -33,7 +33,7 @@ export default function Contact() {
                 <span className="title"><a href="mailto:aerial@kauraccounting.com">E-mail</a></span>
               </div>
               <div className="staff-entry">
-                <img src="/assets/images/mc-2.jpg" alt="Milo" />
+                <img src="/assets/images/MC-2.jpg" alt="Milo" />
                 <span className="person">Milo Conroy</span>
                 <span className="title">Staff Associate</span>
                 <span className="title"><a href="mailto:milo@kauraccounting.com">E-mail</a></span>
